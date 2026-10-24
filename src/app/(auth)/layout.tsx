@@ -31,12 +31,12 @@ export default function AuthLayout({
           {/* Logo */}
           <div className="flex items-center gap-4">
             <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/20 bg-white/10 shadow-xl backdrop-blur-xl">
-              <span className="text-2xl font-bold text-indigo-300">H</span>
+              <span className="text-2xl font-bold text-indigo-500">H</span>
             </div>
 
             <div>
               <h1 className="text-2xl font-bold tracking-tight text-white">
-                Hajir <span className="text-indigo-300">System</span>
+                Hajir <span className="text-indigo-500">System</span>
               </h1>
 
               <p className="mt-1 text-xs tracking-wide text-white/60">
@@ -103,7 +103,7 @@ export default function AuthLayout({
       </section>
 
       {/* Right Side */}
-      <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-base-100 px-5 py-10 sm:px-8 lg:px-12">
+      <section className="relative bg-[#ffffff] flex min-h-screen items-center justify-center overflow-hidden px-5 py-10 sm:px-8 lg:px-12">
         {/* Background Effects */}
         <div className="pointer-events-none absolute -right-32 -top-32 h-80 w-80 rounded-full bg-indigo-500/[0.07] blur-3xl" />
 
