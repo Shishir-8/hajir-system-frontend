@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import React from "react";
 
 export default function AuthLayout({
@@ -69,8 +70,8 @@ export default function AuthLayout({
             </h2>
 
             <p className="mt-7 max-w-lg text-sm leading-7 text-white/65 xl:text-base">
-              Manage employees, organize departments, and control access
-              from one simple, secure platform.
+              Manage employees, organize departments, and control access from
+              one simple, secure platform.
             </p>
 
             {/* Features */}
@@ -110,8 +111,22 @@ export default function AuthLayout({
         <div className="pointer-events-none absolute -bottom-32 -left-32 h-80 w-80 rounded-full bg-purple-500/[0.07] blur-3xl" />
 
         {/* Login / Register Content */}
-        <div className="relative z-10 w-full max-w-lg">
+        <div className="relative z-10 w-full max-w-lg space-y-6">
           {children}
+
+          <p className="text-center text-xs text-muted-foreground">
+            <span className="font-medium">*</span> For demo credentials, please
+            visit the{" "}
+            <Link
+              href="https://github.com/Shishir-8/hajir-system-backend"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-primary underline underline-offset-4 hover:text-primary/80"
+            >
+              Hajir System Backend GitHub repository
+            </Link>
+            .
+          </p>
         </div>
       </section>
     </main>
