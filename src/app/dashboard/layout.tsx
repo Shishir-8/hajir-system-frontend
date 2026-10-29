@@ -4,7 +4,8 @@ import AdminSidebar from '@/components/common/sidebar/admin-sidebar'
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
 import React from 'react'
 
-const AdminLayout = ({children}: {children:React.ReactNode}) => {
+const DashboardLayout = ({children}: {children:React.ReactNode}) => {
+
   return (
     <SidebarProvider>
       <AdminSidebar />
@@ -20,4 +21,4 @@ const AdminLayout = ({children}: {children:React.ReactNode}) => {
   )
 }
 
-export default AdminLayout
+export default DashboardLayout

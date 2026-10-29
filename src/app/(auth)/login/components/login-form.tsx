@@ -19,6 +19,9 @@ import {
 } from "@/schema/auth-schema";
 import { Metadata } from "next";
 import { Spinner } from "@/components/ui/spinner";
+import toast from "react-hot-toast";
+import { loginUser } from "@/services/auth-service";
+import { useRouter } from "next/navigation";
 
 export const metadata: Metadata = {
   title: 'Login | Hajir System',
@@ -26,6 +29,10 @@ export const metadata: Metadata = {
 };
 
 export default function LoginForm() {
+  const router = useRouter()
+
+
+
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -34,8 +41,20 @@ export default function LoginForm() {
     },
   });
 
-  async function onSubmit(values: LoginFormValues) {
-    console.log("Login values:", values);
+  const onSubmit = async (values: LoginFormValues)=> {
+    try {
+      const res = await loginUser(values)
+      if (res.status == 200) {
+
+        toast.success("Login successfull!")
+        
+      }
+      router.replace('/admin/dashboard')
+      
+    } catch (error: any) {
+      console.log(error)
+      toast.error("Login failed. Please try again.")
+    }
   }
 
   return (
@@ -108,7 +127,7 @@ export default function LoginForm() {
         {/* Submit Button */}
         <Button
           type="submit"
-          className="w-full"
+          className="w-full cursor-pointer"
           disabled={form.formState.isSubmitting}
         >
           {form.formState.isSubmitting
