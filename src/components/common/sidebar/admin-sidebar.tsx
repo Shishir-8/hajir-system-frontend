@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { Button } from "@/components/ui/button";
 import {
   Sidebar,
@@ -9,14 +9,18 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { adminSidebarData } from "@/constants/admin-sidebar-data";
+import { sidebarData } from "@/constants/sidebar-data";
+import { SidebarItem } from "@/types/sidebar";
 import { LogOut } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
 
-const AdminSidebar = () => {
-    const pathname = usePathname()
+interface SidebarProps {
+  links: SidebarItem[]
+}
+
+const AdminSidebar = ({links}: SidebarProps) => {
+  const pathname = usePathname();
   return (
     <>
       <Sidebar>
@@ -36,16 +40,14 @@ const AdminSidebar = () => {
         </SidebarHeader>
         <SidebarContent>
           <SidebarMenu>
-            {adminSidebarData.map((item, id) => {
+            {links.map((item, id) => {
               const Icon = item.icon;
-              const isActive = pathname === item.url
+              const isActive = pathname === item.url;
               return (
                 <SidebarMenuItem key={id}>
-                  <SidebarMenuButton isActive={isActive}>
-                    <Link href={item.url} className="flex items-center gap-2 p-2">
-                    <Icon size={16} />
+                  <SidebarMenuButton render={<Link href={item.url} />} isActive={isActive}>
+                    <Icon />
                     <span>{item.title}</span>
-                  </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               );
