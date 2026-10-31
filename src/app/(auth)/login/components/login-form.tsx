@@ -22,6 +22,7 @@ import { Spinner } from "@/components/ui/spinner";
 import toast from "react-hot-toast";
 import { loginUser } from "@/services/auth-service";
 import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/store/auth-store";
 
 export const metadata: Metadata = {
   title: 'Login | Hajir System',
@@ -29,9 +30,9 @@ export const metadata: Metadata = {
 };
 
 export default function LoginForm() {
+
   const router = useRouter()
-
-
+  const {setUser, setAccess, setRefresh, setIsAuthenticated } = useAuthStore()
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -44,13 +45,17 @@ export default function LoginForm() {
   const onSubmit = async (values: LoginFormValues)=> {
     try {
       const res = await loginUser(values)
+      console.log(res)
       if (res.status == 200) {
-
+        setUser(res.data.user)
+        setAccess(res.data.access)
+        setRefresh(res.data.refresh)
+        setIsAuthenticated(true)
         toast.success("Login successfull!")
-        
       }
-      router.replace('/admin/dashboard')
-      
+
+      router.replace('dashboard/home')
+
     } catch (error: any) {
       console.log(error)
       toast.error("Login failed. Please try again.")

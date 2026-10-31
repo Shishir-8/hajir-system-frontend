@@ -1,13 +1,29 @@
 "use client";
 
+import { useAuthStore } from "@/store/auth-store";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useEffect } from "react";
 
 export default function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const router = useRouter();
+
+  const { user, hydrated } = useAuthStore();
+
+  useEffect(() => {
+    if (hydrated && user) {
+      router.replace("/dashboard/home");
+    }
+  }, [user, hydrated, router]);
+
+  if (!hydrated || user) {
+    return null
+  }
+
   return (
     <main className="grid min-h-screen w-full bg-base-100 md:grid-cols-2 lg:grid-cols-[1.1fr_0.9fr]">
       {/* Left Side */}

@@ -1,18 +1,16 @@
 "use client";
 
-import { Bell, LogOut, Menu, UserRound } from "lucide-react";
+import { Bell, CloudLightning, LogOut, Menu, UserRound } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { useSidebar } from "@/components/ui/sidebar";
+import { useAuthStore } from "@/store/auth-store";
 
 const AdminHeader = () => {
     const {toggleSidebar} = useSidebar()
 
-  const admin = {
-    firstName: "Shishir",
-    lastName: "Oli",
-    role: "Admin",
-  };
+    const {user} = useAuthStore()
+    console.log(user)
 
   return (
     <header className="flex h-18 w-full items-center justify-between border-b border-gray-200 bg-white px-4 md:px-6">
@@ -31,7 +29,7 @@ const AdminHeader = () => {
 
         <div className="min-w-0">
           <h1 className="truncate text-lg font-bold text-gray-900 md:text-2xl">
-            Welcome, {admin.firstName}
+            Welcome, {user?.first_name}
           </h1>
 
           <p className="hidden text-sm text-gray-500 sm:block">
@@ -60,9 +58,9 @@ const AdminHeader = () => {
 
           <div className="hidden text-left md:block">
             <p className="text-sm font-semibold text-gray-900">
-              {admin.firstName} {admin.lastName}
+              {user?.first_name} {user?.last_name}
             </p>
-            <p className="text-xs text-gray-500">{admin.role}</p>
+            <p className="text-xs text-gray-500">{user?.role}</p>
           </div>
         </div>
    

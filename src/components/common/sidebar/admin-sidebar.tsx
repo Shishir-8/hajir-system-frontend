@@ -14,6 +14,8 @@ import { SidebarItem } from "@/types/sidebar";
 import { LogOut } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import LogoutModal from "../modal/logout-modal";
+import { useState } from "react";
 
 interface SidebarProps {
   links: SidebarItem[]
@@ -21,6 +23,7 @@ interface SidebarProps {
 
 const AdminSidebar = ({links}: SidebarProps) => {
   const pathname = usePathname();
+  const [openLogoutModal, setOpenLogoutModal] = useState<boolean>(false)
   return (
     <>
       <Sidebar>
@@ -57,6 +60,7 @@ const AdminSidebar = ({links}: SidebarProps) => {
 
         <SidebarFooter>
           <Button
+          onClick={()=> setOpenLogoutModal(true)}
             variant="ghost"
             className="w-full justify-center gap-2 bg-primary hover:bg-primary hover:text-white text-white cursor-pointer"
           >
@@ -65,6 +69,8 @@ const AdminSidebar = ({links}: SidebarProps) => {
           </Button>
         </SidebarFooter>
       </Sidebar>
+
+      <LogoutModal open={openLogoutModal} setOpen={setOpenLogoutModal} />
     </>
   );
 };
