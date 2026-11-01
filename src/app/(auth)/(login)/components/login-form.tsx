@@ -54,7 +54,7 @@ export default function LoginForm() {
         toast.success("Login successfull!")
       }
 
-      router.replace('dashboard/home')
+      router.replace('/dashboard')
 
     } catch (error: any) {
       console.log(error)

@@ -4,14 +4,24 @@ import AdminSidebar from '@/components/common/sidebar/admin-sidebar'
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
 import { sidebarData } from '@/constants/sidebar-data'
 import { useAuthStore } from '@/store/auth-store'
-import React from 'react'
+import { useRouter } from 'next/navigation'
+import React, { useEffect } from 'react'
 
 const DashboardLayout = ({children}: {children:React.ReactNode}) => {
 
-  const {user} = useAuthStore()
+  const {user, isAuthenticated, hydrated} = useAuthStore()
+  const router = useRouter()
 
   const userRole = user?.role
   const allowedLinks = sidebarData.filter((link)=> link.role.includes(userRole))
+
+  useEffect(() => {
+    if (!user && !isAuthenticated && hydrated ) {
+      router.replace('/')
+    }
+  }, [user, isAuthenticated, hydrated])
+
+  if (!isAuthenticated) return null
   
   return (
     <SidebarProvider>

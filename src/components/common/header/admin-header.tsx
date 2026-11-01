@@ -13,7 +13,7 @@ const AdminHeader = () => {
     console.log(user)
 
   return (
-    <header className="flex h-18 w-full items-center justify-between border-b border-gray-200 bg-white px-4 md:px-6">
+    <header className="flex h-18 w-full sticky top-0 z-50 items-center justify-between border-b border-gray-200 bg-white px-4 md:px-6">
       {/* LEFT SIDE */}
       <div className="flex min-w-0 items-center gap-3 md:gap-4">
         <Button

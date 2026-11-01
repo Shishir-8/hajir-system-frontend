@@ -14,7 +14,7 @@ import { SidebarItem } from "@/types/sidebar";
 export const sidebarData: SidebarItem[] = [
   {
     title: "Dashboard",
-    url: "/dashboard/home",
+    url: "/dashboard",
     icon: LayoutDashboard,
     role: ["ADMIN", "MANAGER", "EMPLOYEE"],
   },

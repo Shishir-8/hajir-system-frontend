@@ -8,8 +8,8 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarRail,
 } from "@/components/ui/sidebar";
-import { sidebarData } from "@/constants/sidebar-data";
 import { SidebarItem } from "@/types/sidebar";
 import { LogOut } from "lucide-react";
 import Link from "next/link";
@@ -57,9 +57,11 @@ const AdminSidebar = ({links}: SidebarProps) => {
             })}
           </SidebarMenu>
         </SidebarContent>
+        <SidebarRail />
 
         <SidebarFooter>
           <Button
+          type="button"
           onClick={()=> setOpenLogoutModal(true)}
             variant="ghost"
             className="w-full justify-center gap-2 bg-primary hover:bg-primary hover:text-white text-white cursor-pointer"
@@ -71,6 +73,7 @@ const AdminSidebar = ({links}: SidebarProps) => {
       </Sidebar>
 
       <LogoutModal open={openLogoutModal} setOpen={setOpenLogoutModal} />
+      
     </>
   );
 };

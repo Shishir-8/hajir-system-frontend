@@ -11,6 +11,7 @@ import {
 import { Spinner } from "@/components/ui/spinner";
 import { logoutUser } from "@/services/auth-service";
 import { useAuthStore } from "@/store/auth-store";
+import { clear } from "console";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -33,18 +34,19 @@ const LogoutModal = ({ open, setOpen }: LogoutProps) => {
         }
         await logoutUser(refresh)
         clearAuth()
+        setOpen(false)
         toast.success('Logout successfull!')
-        router.push('/login')
+        window.location.href = '/'
     } catch (error: any) {
         console.log(error?.message)
-        toast.error("Failed to logout!")
+        toast.error(error?.message || "Failed to login!")
     } finally{
         setLoading(false)
     }
   }
 
   return (
-    <Dialog open={open} onOpenChange={() => setOpen(false)}>
+    <Dialog open={open} onOpenChange={()=>setOpen(false)}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Logout</DialogTitle>

@@ -7,6 +7,8 @@ export const metadata: Metadata = {
   description: "Sign in to your Hajir System account.",
 };
 
+export const instant = false
+
 export default function LoginPage() {
   return (
     <main className="space-y-6">

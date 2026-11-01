@@ -12,17 +12,14 @@ export default function AuthLayout({
 }) {
   const router = useRouter();
 
-  const { user, hydrated } = useAuthStore();
+  const { isAuthenticated } = useAuthStore();
 
   useEffect(() => {
-    if (hydrated && user) {
-      router.replace("/dashboard/home");
+    if (isAuthenticated) {
+      router.replace('/dashboard')
     }
-  }, [user, hydrated, router]);
+  }, [isAuthenticated])
 
-  if (!hydrated || user) {
-    return null
-  }
 
   return (
     <main className="grid min-h-screen w-full bg-base-100 md:grid-cols-2 lg:grid-cols-[1.1fr_0.9fr]">
