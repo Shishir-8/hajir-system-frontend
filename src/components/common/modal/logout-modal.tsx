@@ -22,7 +22,7 @@ interface LogoutProps {
 }
 
 const LogoutModal = ({ open, setOpen }: LogoutProps) => {
-  const { clearAuth, refresh } = useAuthStore();
+  const { clearAuth, refresh, access } = useAuthStore();
   const router = useRouter()
   const [loading, setLoading] = useState(false)
 
@@ -32,7 +32,7 @@ const LogoutModal = ({ open, setOpen }: LogoutProps) => {
         if (!refresh) {
             throw new Error('No refresh token found')
         }
-        await logoutUser(refresh)
+        await logoutUser(refresh, access)
         clearAuth()
         setOpen(false)
         toast.success('Logout successfull!')

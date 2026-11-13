@@ -48,7 +48,8 @@ const AdminSidebar = ({links}: SidebarProps) => {
               const isActive = pathname === item.url;
               return (
                 <SidebarMenuItem key={id}>
-                  <SidebarMenuButton render={<Link href={item.url} />} isActive={isActive}>
+                  <SidebarMenuButton
+                  render={<Link href={item.url} />} isActive={isActive}>
                     <Icon />
                     <span>{item.title}</span>
                   </SidebarMenuButton>

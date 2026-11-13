@@ -1,62 +1,98 @@
+"use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
-const attendanceData = {
-  total: 120,
-  present: 105,
-  absent: 10,
-  late: 5,
-};
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  type ChartConfig,
+} from "@/components/ui/chart";
+import { attendanceData, chartConfig } from "@/constants/dashboard-data";
 
-const AttendanceOverview = () => {
-  const percentage = Math.round(
-    (attendanceData.present / attendanceData.total) * 100
-  );
+import {
+  Line,
+  LineChart,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+} from "recharts";
 
+const AttendanceTrends = () => {
   return (
-    <Card>
+    <Card className="border-border/60 shadow-sm">
       <CardHeader>
-        <CardTitle>Attendance Overview</CardTitle>
+        <CardTitle>Attendance Trends</CardTitle>
+        <CardDescription>
+          Weekly employee attendance overview
+        </CardDescription>
       </CardHeader>
 
-      <CardContent className="space-y-5">
-        <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-muted-foreground">
-              Attendance Rate
-            </span>
-            <span className="text-lg font-semibold">{percentage}%</span>
-          </div>
+      <CardContent>
+        <ChartContainer
+          config={chartConfig}
+          className="h-[300px] w-full"
+        >
+          <LineChart
+            data={attendanceData}
+            margin={{
+              left: 0,
+              right: 12,
+              top: 10,
+              bottom: 0,
+            }}
+          >
+            <CartesianGrid
+              vertical={false}
+              strokeDasharray="3 3"
+            />
 
-          <Progress value={percentage} className="h-2" />
-        </div>
+            <XAxis
+              dataKey="day"
+              tickLine={false}
+              axisLine={false}
+              tickMargin={10}
+            />
 
-        <div className="grid grid-cols-3 gap-4">
-          <div>
-            <p className="text-sm text-muted-foreground">Present</p>
-            <p className="text-2xl font-semibold text-green-600">
-              {attendanceData.present}
-            </p>
-          </div>
+            <YAxis
+              tickLine={false}
+              axisLine={false}
+              tickMargin={10}
+            />
 
-          <div>
-            <p className="text-sm text-muted-foreground">Absent</p>
-            <p className="text-2xl font-semibold text-red-500">
-              {attendanceData.absent}
-            </p>
-          </div>
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent />}
+            />
 
-          <div>
-            <p className="text-sm text-muted-foreground">Late</p>
-            <p className="text-2xl font-semibold text-amber-500">
-              {attendanceData.late}
-            </p>
-          </div>
-        </div>
+            <Line
+              dataKey="present"
+              type="monotone"
+              stroke="var(--color-present)"
+              strokeWidth={3}
+              dot={false}
+              activeDot={{ r: 5 }}
+            />
+
+            <Line
+              dataKey="absent"
+              type="monotone"
+              stroke="var(--color-absent)"
+              strokeWidth={3}
+              dot={false}
+              activeDot={{ r: 5 }}
+            />
+          </LineChart>
+        </ChartContainer>
       </CardContent>
     </Card>
   );
 };
 
-export default AttendanceOverview;
+export default AttendanceTrends;

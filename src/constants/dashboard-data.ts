@@ -1,3 +1,4 @@
+import { ChartConfig } from "@/components/ui/chart";
 import { Users, UserCheck, UserX, Clock } from "lucide-react";
 
 export const adminStats = [
@@ -7,7 +8,7 @@ export const adminStats = [
     icon: Users,
   },
   {
-    title: "Present Today",
+    title: "Total Departments",
     value: "105",
     icon: UserCheck,
   },
@@ -107,3 +108,25 @@ export const recentEmployees = [
     joinedAt: "Oct 22, 2026",
   },
 ];
+
+
+export const attendanceData = [
+  { day: "Sun", present: 0, absent: 0 },
+  { day: "Mon", present: 105, absent: 12 },
+  { day: "Tue", present: 110, absent: 8 },
+  { day: "Wed", present: 98, absent: 18 },
+  { day: "Thu", present: 115, absent: 7 },
+  { day: "Fri", present: 108, absent: 10 },
+  { day: "Sat", present: 95, absent: 15 },
+];
+
+export const chartConfig = {
+  present: {
+    label: "Present",
+    color: "#4F46E5",
+  },
+  absent: {
+    label: "Absent",
+    color: "#EF4444",
+  },
+} satisfies ChartConfig;

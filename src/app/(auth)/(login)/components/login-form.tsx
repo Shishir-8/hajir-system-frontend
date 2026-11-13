@@ -6,6 +6,7 @@ import Link from "next/link";
 
 import {
   Field,
+  FieldContent,
   FieldError,
   FieldLabel,
 } from "@/components/ui/field";
@@ -13,26 +14,23 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-import {
-  type LoginFormValues,
-  loginSchema,
-} from "@/schema/auth-schema";
+import { type LoginFormValues, loginSchema } from "@/schema/auth-schema";
 import { Metadata } from "next";
 import { Spinner } from "@/components/ui/spinner";
 import toast from "react-hot-toast";
 import { loginUser } from "@/services/auth-service";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/auth-store";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export const metadata: Metadata = {
-  title: 'Login | Hajir System',
-  description: 'Log in to your Hajir System workforce account.',
+  title: "Login | Hajir System",
+  description: "Log in to your Hajir System workforce account.",
 };
 
 export default function LoginForm() {
-
-  const router = useRouter()
-  const {setUser, setAccess, setRefresh, setIsAuthenticated } = useAuthStore()
+  const router = useRouter();
+  const { setUser, setAccess, setRefresh, setIsAuthenticated } = useAuthStore();
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -42,41 +40,35 @@ export default function LoginForm() {
     },
   });
 
-  const onSubmit = async (values: LoginFormValues)=> {
+  const onSubmit = async (values: LoginFormValues) => {
     try {
-      const res = await loginUser(values)
-      console.log(res)
+      const res = await loginUser(values);
+      console.log(res);
       if (res.status == 200) {
-        setUser(res.data.user)
-        setAccess(res.data.access)
-        setRefresh(res.data.refresh)
-        setIsAuthenticated(true)
-        toast.success("Login successfull!")
+        setUser(res.data.user);
+        setAccess(res.data.access);
+        setRefresh(res.data.refresh);
+        setIsAuthenticated(true);
+        toast.success("Login successfull!");
       }
 
-      router.replace('/dashboard')
-
+      router.replace("/dashboard");
     } catch (error: any) {
-      console.log(error)
-      toast.error("Login failed. Please try again.")
+      console.log(error);
+      toast.error("Login failed. Please try again.");
     }
-  }
+  };
 
   return (
     <div className="w-full space-y-6">
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-5"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
         {/* Email Field */}
         <Controller
           name="email"
           control={form.control}
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor={field.name}>
-                Email address
-              </FieldLabel>
+              <FieldLabel htmlFor={field.name}>Email address</FieldLabel>
 
               <Input
                 {...field}
@@ -87,9 +79,7 @@ export default function LoginForm() {
                 aria-invalid={fieldState.invalid}
               />
 
-              {fieldState.invalid && (
-                <FieldError errors={[fieldState.error]} />
-              )}
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
           )}
         />
@@ -100,18 +90,7 @@ export default function LoginForm() {
           control={form.control}
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
-              <div className="flex items-center justify-between">
-                <FieldLabel htmlFor={field.name}>
-                  Password
-                </FieldLabel>
-
-                <Link
-                  href="/forgot-password"
-                  className="text-sm font-medium text-primary hover:underline"
-                >
-                  Forgot password?
-                </Link>
-              </div>
+              <FieldLabel htmlFor={field.name}>Password</FieldLabel>
 
               <Input
                 {...field}
@@ -122,12 +101,28 @@ export default function LoginForm() {
                 aria-invalid={fieldState.invalid}
               />
 
-              {fieldState.invalid && (
-                <FieldError errors={[fieldState.error]} />
-              )}
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
           )}
         />
+
+        <div className="flex items-center justify-between">
+          <Field orientation={"horizontal"} className="flex-1">
+            <Checkbox />
+            <FieldContent>
+              <FieldLabel className="text-muted-foreground">
+                Remember me
+              </FieldLabel>
+            </FieldContent>
+          </Field>
+
+          <Link
+            href="/forgot-password"
+            className="shrink-0 whitespace-nowrap text-sm font-medium text-primary hover:underline"
+          >
+            Forgot password?
+          </Link>
+        </div>
 
         {/* Submit Button */}
         <Button
@@ -135,9 +130,7 @@ export default function LoginForm() {
           className="w-full cursor-pointer"
           disabled={form.formState.isSubmitting}
         >
-          {form.formState.isSubmitting
-            ? <Spinner />
-            : "Sign In"}
+          {form.formState.isSubmitting ? <Spinner /> : "Sign In"}
         </Button>
       </form>
     </div>

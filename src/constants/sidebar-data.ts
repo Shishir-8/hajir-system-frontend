@@ -24,6 +24,12 @@ export const sidebarData: SidebarItem[] = [
     icon: Users,
     role: ["ADMIN", "MANAGER"],
   },
+    {
+    title: "Departments",
+    url: "/dashboard/departments",
+    icon: Building2,
+    role: ["ADMIN", "MANAGER"],
+  },
   {
     title: "Attendance",
     url: "/dashboard/attendance",
@@ -36,12 +42,7 @@ export const sidebarData: SidebarItem[] = [
     icon: CalendarDays,
     role: ["ADMIN", "MANAGER"],
   },
-  {
-    title: "Departments",
-    url: "/dashboard/departments",
-    icon: Building2,
-    role: ["ADMIN", "MANAGER"],
-  },
+
   {
     title: "Settings",
     url: "/dashboard/settings",

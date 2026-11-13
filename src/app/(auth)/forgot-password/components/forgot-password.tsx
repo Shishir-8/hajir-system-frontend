@@ -78,7 +78,7 @@ export default function ForgotPasswordForm() {
       <p className="text-center text-sm text-muted-foreground">
         Remember your password?{" "}
         <Link
-          href="/login"
+          href="/"
           className="font-medium text-primary hover:underline"
         >
           Back to login

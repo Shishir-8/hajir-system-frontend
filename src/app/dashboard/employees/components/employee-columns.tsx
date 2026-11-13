@@ -2,18 +2,14 @@
 import { Employee } from "@/types/employee";
 import { Badge } from "@/components/ui/badge";
 import { Column } from "@/components/common/table/generic-table";
+import TableAction from "@/components/common/table/table-actions";
 
 export const employeeColumns: Column<Employee>[] = [
   {
-    key: "id",
-    header: "ID",
-  },
-  {
-    key: "first_name",
-    header: "Employee",
+    title: "Employee",
     render: (employee) => (
       <div>
-        <p className="font-medium">
+        <p className="text-sm font-medium">
           {employee.first_name} {employee.last_name}
         </p>
         <p className="text-xs text-muted-foreground">
@@ -22,21 +18,53 @@ export const employeeColumns: Column<Employee>[] = [
       </div>
     ),
   },
+
   {
-    key: "role",
-    header: "Role",
+    title: "Designation",
+    render: (employee) => (
+      <span className="text-sm">{employee.designation}</span>
+    ),
   },
+
   {
-    key: "status",
-    header: "Status",
+    title: "Phone Number",
+    render: (employee) => (
+      <span className="text-sm text-muted-foreground">
+        {employee.phone_number}
+      </span>
+    ),
+  },
+
+  {
+    title: "Address",
+    render: (employee) => (
+      <span className="text-sm text-muted-foreground">
+        {employee.address || "-"}
+      </span>
+    ),
+  },
+
+  {
+    title: "Status",
     render: (employee) => (
       <Badge
         variant={
-          employee.status === "ACTIVE" ? "default" : "secondary"
+          employee.employment_status === "ACTIVE"
+            ? "default"
+            : "secondary"
         }
       >
-        {employee.status}
+        {employee.employment_status}
       </Badge>
+    ),
+  },
+
+  {
+    title: "Actions",
+    render: () => (
+      <div onClick={(e) => e.stopPropagation()}>
+        <TableAction />
+      </div>
     ),
   },
 ];
