@@ -1,41 +1,53 @@
-'use client'
-import AdminHeader from '@/components/common/header/admin-header'
-import AdminSidebar from '@/components/common/sidebar/admin-sidebar'
-import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
-import { sidebarData } from '@/constants/sidebar-data'
-import { useAuthStore } from '@/store/auth-store'
-import { useRouter } from 'next/navigation'
-import React, { useEffect } from 'react'
+"use client";
 
-const DashboardLayout = ({children}: {children:React.ReactNode}) => {
+import React, { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-  const {user, isAuthenticated, hydrated} = useAuthStore()
-  const router = useRouter()
+import AdminHeader from "@/components/common/header/admin-header";
+import AdminSidebar from "@/components/common/sidebar/dashboard-sidebar";
 
-  const userRole = user?.role
-  const allowedLinks = sidebarData.filter((link)=> link.role.includes(userRole))
+import {
+  SidebarInset,
+  SidebarProvider,
+} from "@/components/ui/sidebar";
+
+
+import { useAuthStore } from "@/store/auth-store";
+import { getSidebarItems } from "@/lib/sidebar-helper";
+
+const DashboardLayout = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  const { user, isAuthenticated, hydrated } = useAuthStore();
+  const router = useRouter();
 
   useEffect(() => {
-    if (!user && !isAuthenticated && hydrated ) {
-      router.replace('/')
+    if (hydrated && (!isAuthenticated || !user)) {
+      router.replace("/login");
     }
-  }, [user, isAuthenticated, hydrated])
+  }, [hydrated, isAuthenticated, user, router]);
 
-  if (!isAuthenticated) return null
-  
+  if (!hydrated || !isAuthenticated || !user) {
+    return null;
+  }
+
+  const allowedLinks = getSidebarItems(user.role);
+
   return (
     <SidebarProvider>
       <AdminSidebar links={allowedLinks} />
 
-      <SidebarInset className='min-w-0'>
+      <SidebarInset className="min-w-0">
         <AdminHeader />
 
-        <main className='flex flex-1 min-w-0 flex-col gap-4 p-4 bg-secondary'>
+        <main className="flex min-w-0 flex-1 flex-col gap-4 bg-secondary p-4">
           {children}
         </main>
       </SidebarInset>
     </SidebarProvider>
-  )
-}
+  );
+};
 
-export default DashboardLayout
+export default DashboardLayout;

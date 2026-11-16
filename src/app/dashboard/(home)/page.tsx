@@ -1,45 +1,12 @@
-"use client";
+import React from 'react'
+import AdminDashboardPage from './components/admin-dashboard'
 
-import { useAuthStore } from "@/store/auth-store";
-import StatCard from "./components/stat-card";
-import { adminStats } from "@/constants/dashboard-data";
-import PageHeader from "@/components/common/header/page-header";
-import AttendanceTrends from "./components/attendance";
-import AttendanceDistribution from "./components/attendance-distribution";
-import { RecentEmployees } from "./components/recent-employee";
-
-const AdminDashboardPage = () => {
-  const { user } = useAuthStore();
-
+const DashboardPage = () => {
   return (
-    <div className="space-y-6 p-2">
-      <PageHeader
-        title="Dashboard Page"
-        subTitle={`Welcome back, ${user?.first_name} 👋`}
-        showSearch={false}
-      />
+    <main>
+      <AdminDashboardPage />
+    </main>
+  )
+}
 
-      {/* Statistics */}
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        {adminStats.map((stat) => (
-          <StatCard key={stat.title} {...stat} />
-        ))}
-      </div>
-
-      {/* Attendance Analytics */}
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-        <div className="lg:col-span-2">
-          <AttendanceTrends />
-        </div>
-
-        <div className="lg:col-span-1">
-          <AttendanceDistribution />
-        </div>
-      </div>
-
-      <RecentEmployees />
-    </div>
-  );
-};
-
-export default AdminDashboardPage;
+export default DashboardPage

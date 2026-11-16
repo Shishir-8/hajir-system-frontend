@@ -18,8 +18,16 @@ import {
   changePasswordSchema,
   type ChangePasswordFormValues,
 } from "@/schema/auth-schema";
+import { useRouter, useSearchParams } from "next/navigation";
+import { resetPassword } from "@/services/auth-service";
+import toast from "react-hot-toast";
 
-export default function ChangePasswordForm() {
+export default function ResetPasswordForm() {
+  const searchParams = useSearchParams()
+  const uid = searchParams.get('uid')
+  const token = searchParams.get('token')
+
+
   const form = useForm<ChangePasswordFormValues>({
     resolver: zodResolver(changePasswordSchema),
     defaultValues: {
@@ -29,9 +37,16 @@ export default function ChangePasswordForm() {
   });
 
   async function onSubmit(values: ChangePasswordFormValues) {
-    console.log("Change password:", values);
-
-    // TODO: Connect your Django REST Framework API.
+    try {
+      const res = await resetPassword(uid, token, values.new_password, values.confirm_password)
+      if (res.status == 200) {
+        toast.success('Password reset successfully!')
+        form.reset()
+      }
+      
+    } catch (error) {
+      toast.error('Failed to reset password. Please try again.')
+    }
   }
 
   return (
@@ -102,10 +117,10 @@ export default function ChangePasswordForm() {
           {form.formState.isSubmitting ? (
             <>
               <Spinner />
-              Changing password...
+              Resetting password...
             </>
           ) : (
-            "Change Password"
+            "Reset Password"
           )}
         </Button>
       </form>

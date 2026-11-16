@@ -24,10 +24,12 @@ const TableAction = () => {
           <Eye />
           View
         </DropdownMenuItem>
+        <DropdownMenuSeparator />
         <DropdownMenuItem className={"text-primary"}>
           <Edit />
           Edit
         </DropdownMenuItem>
+        <DropdownMenuSeparator />
         <DropdownMenuItem variant="destructive">
           <Trash />
           Delete

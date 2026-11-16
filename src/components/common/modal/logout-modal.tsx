@@ -34,8 +34,8 @@ const LogoutModal = ({ open, setOpen }: LogoutProps) => {
         }
         await logoutUser(refresh, access)
         clearAuth()
-        setOpen(false)
         toast.success('Logout successfull!')
+        setOpen(false)
         window.location.href = '/'
     } catch (error: any) {
         console.log(error?.message)

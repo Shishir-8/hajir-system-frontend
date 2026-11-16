@@ -1,3 +1,5 @@
+
+import { EPermissions } from "@/types/role-permission";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -6,6 +8,7 @@ interface AuthState {
   access: string;
   refresh: string;
   role: string | null;
+  userPermissions: EPermissions[];
   isAuthenticated: boolean;
   loading: boolean;
   hydrated: boolean;
@@ -15,6 +18,7 @@ interface AuthState {
   setRefresh: (val: string) => void;
   setUser: (user: any) => void;
   setRole: (role: string) => void;
+  setUserPermissions: (permissions: EPermissions[]) => void;
   setLoading: (loading: boolean) => void;
   setIsAuthenticated: (val: boolean) => void;
   clearAuth: () => void;
@@ -25,20 +29,32 @@ export const useAuthStore = create<AuthState>()(
     (set) => ({
       user: null,
       role: null,
-      access: '',
-      refresh: '',
+      access: "",
+      refresh: "",
+      userPermissions: [],
       isAuthenticated: false,
       loading: false,
       hydrated: false,
 
       setUser: (user) => set({ user }),
-      setAccess: (token) => set({access: token}),
-      setRefresh: (token) => set({refresh: token}),
+      setAccess: (token) => set({ access: token }),
+      setRefresh: (token) => set({ refresh: token }),
       setHydrated: (val) => set({ hydrated: val }),
       setRole: (role) => set({ role }),
+      setUserPermissions: (permissions) =>
+        set({ userPermissions: permissions }),
       setLoading: (loading) => set({ loading }),
       setIsAuthenticated: (val) => set({ isAuthenticated: val }),
-      clearAuth: () => set({ user: null, role: null, access:'', refresh:'', isAuthenticated: false }),
+
+      clearAuth: () =>
+        set({
+          user: null,
+          role: null,
+          access: "",
+          refresh: "",
+          userPermissions: [],
+          isAuthenticated: false,
+        }),
     }),
     {
       name: "auth-storage",

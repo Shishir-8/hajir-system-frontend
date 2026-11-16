@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 
 export default function LoginForm() {
   const router = useRouter();
-  const { setUser, setAccess, setRefresh, setIsAuthenticated } = useAuthStore();
+  const { setUser, setAccess, setRefresh, setIsAuthenticated, setUserPermissions } = useAuthStore();
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -49,10 +49,11 @@ export default function LoginForm() {
         setAccess(res.data.access);
         setRefresh(res.data.refresh);
         setIsAuthenticated(true);
+        setUserPermissions(res.data.permissions)
         toast.success("Login successfull!");
+        form.reset()
+        router.replace("/dashboard");
       }
-
-      router.replace("/dashboard");
     } catch (error: any) {
       console.log(error);
       toast.error("Login failed. Please try again.");

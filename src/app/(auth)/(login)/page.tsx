@@ -13,7 +13,7 @@ export default function LoginPage() {
   return (
     <main className="space-y-6">
       <div className="space-y-2">
-        <h1 className="text-3xl font-bold tracking-tight">Welcome back 👋</h1>
+        <h1 className="text-3xl font-semibold tracking-tight">Welcome back 👋</h1>
 
         <p className="text-sm text-muted-foreground">
           Sign in to your Hajir System account.

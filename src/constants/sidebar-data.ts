@@ -1,70 +1,92 @@
-
+import { UserRole } from "@/types/role-permission";
 import {
-  CalendarCheck,
-  CalendarDays,
   LayoutDashboard,
-  Settings,
-  UserRound,
   Users,
   Building2,
+  CalendarCheck,
+  CalendarDays,
+  Clock,
+  User,
+  Settings,
 } from "lucide-react";
 
-import { SidebarItem } from "@/types/sidebar";
+import { LucideIcon } from "lucide-react";
 
-export const sidebarData: SidebarItem[] = [
-  {
-    title: "Dashboard",
-    url: "/dashboard",
-    icon: LayoutDashboard,
-    role: ["ADMIN", "MANAGER", "EMPLOYEE"],
-  },
-  {
-    title: "Employees",
-    url: "/dashboard/employees",
-    icon: Users,
-    role: ["ADMIN", "MANAGER"],
-  },
-    {
-    title: "Departments",
-    url: "/dashboard/departments",
-    icon: Building2,
-    role: ["ADMIN", "MANAGER"],
-  },
-  {
-    title: "Attendance",
-    url: "/dashboard/attendance",
-    icon: CalendarCheck,
-    role: ["ADMIN", "MANAGER"],
-  },
-  {
-    title: "Leave Management",
-    url: "/dashboard/leave-management",
-    icon: CalendarDays,
-    role: ["ADMIN", "MANAGER"],
-  },
+export interface SidebarItem {
+  title: string;
+  url: string;
+  icon: LucideIcon;
+  roles: UserRole[];
+}
 
+export interface SidebarGroup {
+  title: string;
+  items: SidebarItem[];
+}
+
+export const sidebarData: SidebarGroup[] = [
   {
-    title: "Settings",
-    url: "/dashboard/settings",
-    icon: Settings,
-    role: ["ADMIN"],
+    title: "Workspace",
+    items: [
+      {
+        title: "Dashboard",
+        url: "/dashboard",
+        icon: LayoutDashboard,
+        roles: [UserRole.ADMIN, UserRole.MANAGER, UserRole.EMPLOYEE],
+      },
+      {
+        title: "Employees",
+        url: "/dashboard/employees",
+        icon: Users,
+        roles: [UserRole.ADMIN, UserRole.MANAGER],
+      },
+      {
+        title: "Departments",
+        url: "/dashboard/departments",
+        icon: Building2,
+        roles: [UserRole.ADMIN],
+      },
+      {
+        title: "Attendance",
+        url: "/dashboard/attendance",
+        icon: CalendarCheck,
+        roles: [UserRole.ADMIN, UserRole.MANAGER],
+      },
+      {
+        title: "Leave Management",
+        url: "/dashboard/leaves",
+        icon: CalendarDays,
+        roles: [UserRole.ADMIN, UserRole.MANAGER],
+      },
+      {
+        title: "Settings",
+        url: "/dashboard/settings",
+        icon: Settings,
+        roles: [UserRole.ADMIN],
+      },
+    ],
   },
   {
-    title: "My Attendance",
-    url: "/dashboard/attendance",
-    icon: CalendarCheck,
-    role: ["EMPLOYEE"],
-  },
-  {
-    title: "My Leaves",
-    url: "/dashboard/my-leaves",
-    icon: CalendarDays,
-    role: ["EMPLOYEE"],
-  },
-  {
-    title: "My Profile",
-    url: "/dashboard/profile",
-    icon: UserRound,
-    role: ["ADMIN", "MANAGER", "EMPLOYEE"],
+    title: "Personal",
+    items: [
+      {
+        title: "My Profile",
+        url: "/dashboard/my-profile",
+        icon: User,
+        roles: [UserRole.ADMIN, UserRole.MANAGER, UserRole.EMPLOYEE],
+      },
+      {
+        title: "My Attendance",
+        url: "/dashboard/my-attendance",
+        icon: Clock,
+        roles: [UserRole.ADMIN, UserRole.MANAGER, UserRole.EMPLOYEE],
+      },
+      {
+        title: "My Leaves",
+        url: "/dashboard/my-leaves",
+        icon: CalendarDays,
+        roles: [UserRole.ADMIN, UserRole.MANAGER, UserRole.EMPLOYEE],
+      },
+    ],
   },
 ];

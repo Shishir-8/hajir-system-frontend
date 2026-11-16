@@ -19,9 +19,7 @@ api.interceptors.request.use((config) => {
 
 // Response interceptor
 api.interceptors.response.use(
-  (response) => {
-    return response
-  },
+  (response) => response,
 
   async (error) => {
     const originalRequest = error.config;
@@ -32,23 +30,30 @@ api.interceptors.response.use(
       try {
         const refresh = useAuthStore.getState().refresh;
 
-        // Request a new access token
+        if (!refresh) {
+          throw new Error("Refresh token not found");
+        }
+
         const response = await axios.post(
-          "http://localhost:8000/api/auth/token/refresh/",
+          "http://localhost:8000/api/auth/refresh/",
           { refresh }
         );
 
         const newAccess = response.data.access;
 
+        // Save new access token
         useAuthStore.getState().setAccess(newAccess);
 
-        // Retry the original request
+        // Retry original request
         originalRequest.headers.Authorization = `Bearer ${newAccess}`;
 
         return api(originalRequest);
 
       } catch (refreshError) {
+
+        // Refresh failed, logout user
         useAuthStore.getState().clearAuth();
+
         window.location.href = "/";
 
         return Promise.reject(refreshError);

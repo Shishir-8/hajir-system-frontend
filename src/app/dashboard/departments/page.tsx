@@ -5,12 +5,18 @@ import { GenericTable } from "@/components/common/table/generic-table";
 import { useFetch } from "@/hooks/use-fetch";
 import { Department, PaginatedResponse } from "@/types/employee";
 import { departmentColumns } from "./components/department-columns";
+import withPermissions from "@/hoc/withPermissions";
+import { EPermissions } from "@/types/role-permission";
+import { useAuthStore } from "@/store/auth-store";
 
 const DepartmentPage = () => {
   const { data, isPending, isError, error } = useFetch<PaginatedResponse<Department>>(
     "departments",
     "/departments",
   );
+
+  const {userPermissions} = useAuthStore()
+  console.log("User permissions in dpt", userPermissions)
 
   return (
     <main className="space-y-6 p-2">
@@ -25,11 +31,13 @@ const DepartmentPage = () => {
         columns={departmentColumns}
         data={data?.results ?? []}
         loading={isPending}
-        getRowKey={(employee) => employee.id}
-        emptyMessage="No employees found."
+        getRowKey={(department) => department.id}
+        emptyMessage="No departments found."
       />
     </main>
   );
 };
 
-export default DepartmentPage;
+export default withPermissions(DepartmentPage, [
+  EPermissions.CAN_READ_DEPARTMENT
+])
