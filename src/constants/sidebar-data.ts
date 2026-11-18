@@ -8,6 +8,7 @@ import {
   Clock,
   User,
   Settings,
+  DollarSign,
 } from "lucide-react";
 
 import { LucideIcon } from "lucide-react";
@@ -56,6 +57,12 @@ export const sidebarData: SidebarGroup[] = [
         title: "Leave Management",
         url: "/dashboard/leaves",
         icon: CalendarDays,
+        roles: [UserRole.ADMIN, UserRole.MANAGER],
+      },
+      {
+        title: "Payroll Management",
+        url: "/dashboard/payroll",
+        icon: DollarSign,
         roles: [UserRole.ADMIN, UserRole.MANAGER],
       },
       {

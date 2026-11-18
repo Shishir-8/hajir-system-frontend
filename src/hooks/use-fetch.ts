@@ -1,17 +1,18 @@
-
 import api from "@/services/api";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 export function useFetch<T>(
-    key: string,
-    url: string,
-    params?: object
+  key: string[],
+  url: string,
+  params?: Record<string, unknown>
 ) {
   return useQuery<T>({
-    queryKey: [key, params],
+    queryKey: [...key, params],
     queryFn: async () => {
-      const { data } = await api.get(url, { params });
-      return data;
+      const res = await api.get<T>(url, { params })
+      return res.data
     },
+
+    placeholderData: keepPreviousData
   });
 }

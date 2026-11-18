@@ -3,6 +3,7 @@ import { Employee } from "@/types/employee";
 import { Badge } from "@/components/ui/badge";
 import { Column } from "@/components/common/table/generic-table";
 import TableAction from "@/components/common/table/table-actions";
+import { deleteEmployee } from "@/services/employee-service";
 
 export const employeeColumns: Column<Employee>[] = [
   {
@@ -60,11 +61,18 @@ export const employeeColumns: Column<Employee>[] = [
   },
 
   {
-    title: "Actions",
-    render: () => (
-      <div onClick={(e) => e.stopPropagation()}>
-        <TableAction />
-      </div>
-    ),
-  },
+  title: "Actions",
+  render: (employee) => (
+    <div onClick={(e) => e.stopPropagation()}>
+      <TableAction
+        item={employee}
+        editUrl={`/dashboard/employees/edit-employee/${employee.id}`}
+        viewUrl={`/dashboard/employees/${employee.id}`}
+        onDelete={(item) => deleteEmployee(item.id)}
+        queryKey={["employees"]}
+      />
+    </div>
+  ),
+}
+
 ];

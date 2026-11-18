@@ -11,7 +11,7 @@ interface PageHeaderProps {
   showSearch?: boolean
 }
 
-const PageHeader = ({ title, subTitle, url, buttonTitle, showSearch=true }: PageHeaderProps) => {
+const PageHeader = ({ title, subTitle, url, buttonTitle, showSearch=false }: PageHeaderProps) => {
   const { user } = useAuthStore();
   return (
     <main className="flex items-center justify-between">

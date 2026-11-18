@@ -14,7 +14,7 @@ const AdminDashboardPage = () => {
   const { user } = useAuthStore();
 
   return (
-    <div className="space-y-6 p-2">
+    <div className="space-y-4 p-2">
       <PageHeader
         title="Dashboard Page"
         subTitle={`Welcome back, ${user?.first_name} 👋`}
@@ -28,7 +28,7 @@ const AdminDashboardPage = () => {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
         <div className="lg:col-span-2">
           <AttendanceTrends />
         </div>

@@ -28,7 +28,7 @@ const AdminHeader = () => {
         </Button>
 
         <div className="min-w-0">
-          <h1 className="truncate text-lg font-bold text-gray-900 md:text-2xl">
+          <h1 className="truncate text-lg font-semibold text-gray-900 md:text-2xl">
             Welcome, {user?.first_name}
           </h1>
 
@@ -57,7 +57,7 @@ const AdminHeader = () => {
           </div>
 
           <div className="hidden text-left md:block">
-            <p className="text-sm font-semibold text-gray-900">
+            <p className="text-sm font-medium text-gray-900">
               {user?.first_name} {user?.last_name}
             </p>
             <p className="text-xs text-gray-500">{user?.role}</p>

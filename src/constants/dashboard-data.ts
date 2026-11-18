@@ -1,5 +1,5 @@
 import { ChartConfig } from "@/components/ui/chart";
-import { Users, UserCheck, UserX, Clock } from "lucide-react";
+import { Users, UserCheck, UserX, Clock, CalendarCheck, CalendarDays } from "lucide-react";
 
 export const adminStats = [
   {
@@ -23,6 +23,30 @@ export const adminStats = [
     icon: Clock,
   },
 ];
+
+export const employeeStats = [
+  {
+    title: "Total Attendance",
+    value: "22",
+    icon: CalendarCheck,
+  },
+  {
+    title: "Present Days",
+    value: "20",
+    icon: UserCheck,
+  },
+  {
+    title: "Leave Balance",
+    value: "8",
+    icon: CalendarDays,
+  },
+  {
+    title: "Late Arrivals",
+    value: "2",
+    icon: Clock,
+  },
+];
+
 
 export const recentAttendance = [
   {

@@ -1,7 +1,7 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import Link from "next/link";
-
 
 type ButtonProps = {
   buttonTitle: string;
@@ -10,11 +10,9 @@ type ButtonProps = {
 
 const AddButton = ({ buttonTitle, url }: ButtonProps) => {
   return (
-    <Button className = "h-10">
-      <Link href={url} className="flex items-center">
-        <Plus />
-        {buttonTitle}
-      </Link>
+    <Button nativeButton={false} className="h-10 hover:bg-primary-dark" render={<Link href={url} />}>
+      <Plus />
+      {buttonTitle}
     </Button>
   );
 };

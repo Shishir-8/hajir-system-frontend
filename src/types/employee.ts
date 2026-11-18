@@ -4,7 +4,8 @@ export interface Employee {
   last_name: string;
   email: string;
   address: string;
-  department: number | null;
+  role: "EMPLOYEE" | "MANAGER";
+  department: string;
   designation: string;
   employment_status: "ACTIVE" | "INACTIVE";
   joining_date: string;
@@ -12,14 +13,6 @@ export interface Employee {
   created_at: string;
   updated_at: string;
 }
-
-export interface PaginatedResponse<T> {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: T[];
-}
-
 
 export interface Department {
   id: number;

@@ -25,7 +25,7 @@ const DashboardLayout = ({
 
   useEffect(() => {
     if (hydrated && (!isAuthenticated || !user)) {
-      router.replace("/login");
+      router.replace("/");
     }
   }, [hydrated, isAuthenticated, user, router]);
 
