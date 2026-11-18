@@ -70,6 +70,7 @@ export const employeeColumns: Column<Employee>[] = [
         viewUrl={`/dashboard/employees/${employee.id}`}
         onDelete={(item) => deleteEmployee(item.id)}
         queryKey={["employees"]}
+        name="Employee"
       />
     </div>
   ),

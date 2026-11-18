@@ -7,11 +7,10 @@ import { Employee } from '@/types/employee'
 
 const EmployeeDetailPage = () => {
     const { id } = useParams()
-    const employeeId = Number(id)
 
     const { data, isPending, error } = useFetch<Employee>(
-        ['employees', String(employeeId)],
-        `/employees/${employeeId}`
+        ['employees', String(id)],
+        `/employees/${id}`
     )
 
     if (isPending) return <p>Loading employee...</p>;

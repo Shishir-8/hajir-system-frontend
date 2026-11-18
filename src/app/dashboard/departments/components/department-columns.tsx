@@ -2,6 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Column } from "@/components/common/table/generic-table";
 import { Department } from "@/types/employee";
 import TableAction from "@/components/common/table/table-actions";
+import { deleteDepartment } from "@/services/department-service";
 
 export const departmentColumns: Column<Department>[] = [
   {
@@ -51,9 +52,16 @@ export const departmentColumns: Column<Department>[] = [
 
   {
     title: "Actions",
-    render: () => (
+    render: (department) => (
       <div onClick={(e) => e.stopPropagation()}>
-        <TableAction />
+        <TableAction
+          item={department}
+          showView={false}
+          editUrl={`/dashboard/departments/edit-department/${department.id}`}
+          onDelete={(item) => deleteDepartment(item.id)}
+          queryKey={['departments']}
+          name="Department"
+        />
       </div>
     ),
   },

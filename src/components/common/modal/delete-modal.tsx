@@ -13,12 +13,14 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import toast from "react-hot-toast";
 
 interface DeleteModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onDelete: () => Promise<unknown>;
   queryKey: string[];
+  itemName: string
 }
 
 const DeleteModal = ({
@@ -26,6 +28,7 @@ const DeleteModal = ({
   onOpenChange,
   onDelete,
   queryKey,
+  itemName,
 }: DeleteModalProps) => {
   const queryClient = useQueryClient();
 
@@ -36,9 +39,13 @@ const DeleteModal = ({
       await queryClient.invalidateQueries({
         queryKey,
       });
-
+      toast.success(`${itemName} deleted successfully!`)
       onOpenChange(false);
     },
+
+    onError: () => {
+      toast.error(`Failed to delete ${itemName.toLocaleLowerCase()}`)
+    }
   });
 
   const handleDelete = () => {

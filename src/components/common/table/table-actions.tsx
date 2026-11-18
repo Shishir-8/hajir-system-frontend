@@ -19,28 +19,32 @@ interface Props<T> {
   onDelete: (item: T) => Promise<unknown>;
   queryKey: string[];
   editUrl: string;
-  viewUrl: string;
+  viewUrl?: string;
+  showView?: boolean;
+  name: string
 }
 
-const TableAction = <T, >({
+const TableAction = <T,>({
   item,
   onDelete,
   queryKey,
   editUrl,
   viewUrl,
+  showView = true,
+  name
 }: Props<T>) => {
 
   const [openDelete, setOpenDelete] = useState(false);
   const router = useRouter()
 
   const handleEdit = () => {
-    console.log("Edit url", editUrl)
     router.push(editUrl)
   }
 
   const handleView = () => {
-    console.log("View url", viewUrl)
-    router.push(viewUrl)
+    if(viewUrl) {
+      router.push(viewUrl)
+    }
   }
   return (
     <>
@@ -55,12 +59,14 @@ const TableAction = <T, >({
         />
 
         <DropdownMenuContent align="end">
-          <DropdownMenuItem onClick={handleView}>
-            <Eye /> View
-          </DropdownMenuItem>
-
-          <DropdownMenuSeparator />
-
+          {showView && viewUrl && (
+            <>
+              <DropdownMenuItem onClick={handleView}>
+                <Eye /> View
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+            </> 
+          )}
           <DropdownMenuItem onClick={handleEdit}>
             <Edit /> Edit
           </DropdownMenuItem>
@@ -81,6 +87,7 @@ const TableAction = <T, >({
         onOpenChange={setOpenDelete}
         onDelete={() => onDelete(item)}
         queryKey={queryKey}
+        itemName={name}
       />
     </>
   );

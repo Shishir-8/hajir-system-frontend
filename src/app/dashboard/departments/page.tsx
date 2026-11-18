@@ -3,20 +3,22 @@
 import PageHeader from "@/components/common/header/page-header";
 import { GenericTable } from "@/components/common/table/generic-table";
 import { useFetch } from "@/hooks/use-fetch";
-import { Department, PaginatedResponse } from "@/types/employee";
+import { Department } from "@/types/employee";
 import { departmentColumns } from "./components/department-columns";
 import withPermissions from "@/hoc/withPermissions";
 import { EPermissions } from "@/types/role-permission";
 import { useAuthStore } from "@/store/auth-store";
+import { PaginatedResponse } from "@/types/common";
 
 const DepartmentPage = () => {
-  const { data, isPending, isError, error } = useFetch<PaginatedResponse<Department>>(
-    "departments",
+  const { data, isPending, error } = useFetch<PaginatedResponse<Department>>(
+    ["departments"],
     "/departments",
   );
 
-  const {userPermissions} = useAuthStore()
-  console.log("User permissions in dpt", userPermissions)
+  if(error) {
+    return <p>Failed to load departments {error?.message}</p>
+  }
 
   return (
     <main className="space-y-6 p-2">
@@ -24,7 +26,7 @@ const DepartmentPage = () => {
         title="Department Page"
         subTitle="Manage all departments"
         buttonTitle="Add Department"
-        url="/employees/add/"
+        url="/dashboard/departments/add-department"
       />
 
       <GenericTable
@@ -33,6 +35,7 @@ const DepartmentPage = () => {
         loading={isPending}
         getRowKey={(department) => department.id}
         emptyMessage="No departments found."
+        selectable
       />
     </main>
   );
