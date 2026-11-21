@@ -8,23 +8,40 @@ interface PageHeaderProps {
   subTitle?: string;
   url?: string;
   buttonTitle?: string;
-  showSearch?: boolean
+  showSearch?: boolean;
 }
 
-const PageHeader = ({ title, subTitle, url, buttonTitle, showSearch=false }: PageHeaderProps) => {
+const PageHeader = ({
+  title,
+  subTitle,
+  url,
+  buttonTitle,
+  showSearch = false,
+}: PageHeaderProps) => {
   const { user } = useAuthStore();
+
   return (
-    <main className="flex items-center justify-between">
-      <div className="shrink-0">
-        <h1 className="text-xl font-semibold">{title}</h1>
-        <p className="text-muted-foreground text-sm">{subTitle}</p>
+    <header className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      {/* Title & Subtitle */}
+      <div className="space-y-1">
+        <h1 className="text-lg font-semibold tracking-tight sm:text-xl">
+          {title}
+        </h1>
+        {subTitle && (
+          <p className="text-muted-foreground text-xs sm:text-sm">{subTitle}</p>
+        )}
       </div>
 
-      <div className="flex items-center gap-2 w-full flex-1 justify-end">
-        {showSearch && <SearchBox />}
-        {url && buttonTitle && <AddButton buttonTitle={buttonTitle} url={url} /> }
-      </div>
-    </main>
+      {/* Actions: Search & Add Button */}
+      {(showSearch || (url && buttonTitle)) && (
+        <div className="flex items-center gap-2 w-full justify-end">
+          {showSearch && <SearchBox />}
+          {url && buttonTitle && (
+            <AddButton buttonTitle={buttonTitle} url={url} />
+          )}
+        </div>
+      )}
+    </header>
   );
 };
 

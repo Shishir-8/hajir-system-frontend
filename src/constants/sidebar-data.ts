@@ -48,19 +48,19 @@ export const sidebarData: SidebarGroup[] = [
         roles: [UserRole.ADMIN],
       },
       {
-        title: "Attendance",
+        title: "Attendances",
         url: "/dashboard/attendance",
         icon: CalendarCheck,
         roles: [UserRole.ADMIN, UserRole.MANAGER],
       },
       {
-        title: "Leave Management",
+        title: "Leaves",
         url: "/dashboard/leaves",
         icon: CalendarDays,
         roles: [UserRole.ADMIN, UserRole.MANAGER],
       },
       {
-        title: "Payroll Management",
+        title: "Payroll",
         url: "/dashboard/payroll",
         icon: DollarSign,
         roles: [UserRole.ADMIN, UserRole.MANAGER],

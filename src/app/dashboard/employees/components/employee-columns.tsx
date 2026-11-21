@@ -6,16 +6,25 @@ import TableAction from "@/components/common/table/table-actions";
 import { deleteEmployee } from "@/services/employee-service";
 
 export const employeeColumns: Column<Employee>[] = [
-  {
+   {
     title: "Employee",
     render: (employee) => (
-      <div>
-        <p className="text-sm font-medium">
-          {employee.first_name} {employee.last_name}
-        </p>
-        <p className="text-xs text-muted-foreground">
-          {employee.email}
-        </p>
+      <div className="flex items-center gap-3">
+        <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary">
+          {employee.first_name
+            .split(" ")
+            .map((name) => name[0])
+            .join("")}
+        </div>
+
+        <div>
+          <p className="font-medium text-foreground">
+            {employee.first_name} {employee.last_name}
+          </p>
+          <p className="text-xs text-muted-foreground">
+            {employee.email}
+          </p>
+        </div>
       </div>
     ),
   },
