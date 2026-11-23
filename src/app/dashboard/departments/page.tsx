@@ -7,13 +7,18 @@ import { Department } from "@/types/employee";
 import { departmentColumns } from "./components/department-columns";
 import withPermissions from "@/hoc/withPermissions";
 import { EPermissions } from "@/types/role-permission";
-import { useAuthStore } from "@/store/auth-store";
 import { PaginatedResponse } from "@/types/common";
+import { useFilterStore } from "@/store/filter-store";
+import { useDebounce } from "@/hooks/use-debounce";
 
 const DepartmentPage = () => {
+  const {search} = useFilterStore()
+  const debouncedSearch = useDebounce(search, 500)
   const { data, isPending, error } = useFetch<PaginatedResponse<Department>>(
-    ["departments"],
-    "/departments",
+    ["departments"], "/departments",
+    {
+      search: debouncedSearch
+    }
   );
 
   if(error) {
@@ -27,6 +32,7 @@ const DepartmentPage = () => {
         subTitle="Manage all departments"
         buttonTitle="Add Department"
         url="/dashboard/departments/add-department"
+        showSearch={true}
       />
 
       <GenericTable

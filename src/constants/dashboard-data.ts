@@ -5,22 +5,30 @@ export const adminStats = [
   {
     title: "Total Employees",
     value: "120",
+    description: "Registered employees",
     icon: Users,
+    iconColor: "text-indigo-600",
   },
   {
     title: "Total Departments",
-    value: "105",
+    value: "12",
+    description: "Active departments",
     icon: UserCheck,
+    iconColor: "text-blue-600",
   },
   {
     title: "Absent Today",
     value: "10",
+    description: "Employees absent today",
     icon: UserX,
+    iconColor: "text-red-600",
   },
   {
-    title: "Late Arrivals",
+    title: "Total Leaves",
     value: "5",
+    description: "Employees total leaves today",
     icon: Clock,
+    iconColor: "text-amber-600",
   },
 ];
 
@@ -28,22 +36,30 @@ export const employeeStats = [
   {
     title: "Total Attendance",
     value: "22",
+    description: "Working days this month",
     icon: CalendarCheck,
+    iconColor: "text-indigo-600",
   },
   {
     title: "Present Days",
     value: "20",
+    description: "Days attended this month",
     icon: UserCheck,
+    iconColor: "text-emerald-600",
   },
   {
     title: "Leave Balance",
     value: "8",
+    description: "Available leave days",
     icon: CalendarDays,
+    iconColor: "text-blue-600",
   },
   {
     title: "Late Arrivals",
     value: "2",
+    description: "Late check-ins this month",
     icon: Clock,
+    iconColor: "text-amber-600",
   },
 ];
 
@@ -154,3 +170,91 @@ export const chartConfig = {
     color: "#EF4444",
   },
 } satisfies ChartConfig;
+
+
+
+
+
+import { Leave } from "../types/leave";
+
+export const mockLeaves: Leave[] = [
+  {
+    id: 1,
+    employeeName: "Aarav Sharma",
+    employeeEmail: "aarav@example.com",
+    department: "Engineering",
+    leaveType: "CASUAL",
+    startDate: "2026-11-24",
+    endDate: "2026-11-25",
+    days: 2,
+    reason: "Personal work and family commitments.",
+    status: "PENDING",
+    appliedOn: "2026-11-20",
+  },
+  {
+    id: 2,
+    employeeName: "Sita Thapa",
+    employeeEmail: "sita@example.com",
+    department: "Human Resources",
+    leaveType: "SICK",
+    startDate: "2026-11-26",
+    endDate: "2026-11-27",
+    days: 2,
+    reason: "I am not feeling well and need some rest.",
+    status: "PENDING",
+    appliedOn: "2026-11-21",
+  },
+  {
+    id: 3,
+    employeeName: "Rohan KC",
+    employeeEmail: "rohan@example.com",
+    department: "Finance",
+    leaveType: "ANNUAL",
+    startDate: "2026-11-28",
+    endDate: "2026-11-30",
+    days: 3,
+    reason: "Family vacation.",
+    status: "APPROVED",
+    appliedOn: "2026-11-18",
+  },
+  {
+    id: 4,
+    employeeName: "Priya Adhikari",
+    employeeEmail: "priya@example.com",
+    department: "Engineering",
+    leaveType: "CASUAL",
+    startDate: "2026-11-22",
+    endDate: "2026-11-22",
+    days: 1,
+    reason: "Personal appointment.",
+    status: "REJECTED",
+    appliedOn: "2026-11-17",
+  },
+  {
+    id: 5,
+    employeeName: "Bibek Karki",
+    employeeEmail: "bibek@example.com",
+    department: "Marketing",
+    leaveType: "UNPAID",
+    startDate: "2026-12-02",
+    endDate: "2026-12-04",
+    days: 3,
+    reason: "Personal commitments.",
+    status: "PENDING",
+    appliedOn: "2026-11-21",
+  },
+  {
+    id: 6,
+    employeeName: "Nisha Gurung",
+    employeeEmail: "nisha@example.com",
+    department: "Operations",
+    leaveType: "SICK",
+    startDate: "2026-11-19",
+    endDate: "2026-11-20",
+    days: 2,
+    reason: "Medical rest.",
+    status: "CANCELLED",
+    appliedOn: "2026-11-16",
+  },
+];
+

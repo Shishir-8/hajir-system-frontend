@@ -3,10 +3,10 @@
 import PageHeader from "@/components/common/header/page-header";
 import { adminStats } from "@/constants/dashboard-data";
 import { useAuthStore } from "@/store/auth-store";
-import StatCard from "./stat-card";
 import AttendanceTrends from "@/components/common/admin/attendance";
 import AttendanceDistribution from "@/components/common/admin/attendance-distribution";
 import { RecentEmployees } from "@/components/common/admin/recent-employee";
+import { StatCard } from "@/components/common/admin/stat-card";
 
 
 

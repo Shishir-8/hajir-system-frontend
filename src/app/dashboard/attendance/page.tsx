@@ -1,3 +1,4 @@
+
 "use client";
 
 import PageHeader from "@/components/common/header/page-header";
@@ -7,18 +8,29 @@ import { useFetch } from "@/hooks/use-fetch";
 import { PaginatedResponse } from "@/types/common";
 import { AttendanceRecord } from "@/constants/admin-type";
 import AttendanceFilters from "@/components/common/filter/filter";
+import { AttendanceStats } from "./components/attendance-stats";
 
 export default function AttendancePage() {
-  const { data, isPending, error } = useFetch<PaginatedResponse<AttendanceRecord>>(["attendance"], "/attendance/");
+  const { data, isPending, error } =
+    useFetch<PaginatedResponse<AttendanceRecord>>(
+      ["attendance"],
+      "/attendance/"
+    );
 
   return (
-    <main className="space-y-4 p-2">
+    <main className="space-y-6 p-2">
       <PageHeader
-        title="Attendance"
+        title="Attendance Management"
         subTitle="Monitor and manage employee attendance records."
         url="/dashboard/attendance/create"
         buttonTitle="Add Attendance"
-        showSearch={true}
+      />
+
+      <AttendanceStats
+        present={216}
+        absent={12}
+        late={8}
+        onLeave={12}
       />
 
       <AttendanceFilters
@@ -30,7 +42,7 @@ export default function AttendancePage() {
 
       {error ? (
         <h1 className="text-center">
-          Failed to load employees. {error.message}
+          Failed to load attendance records. {error.message}
         </h1>
       ) : (
         <GenericTable

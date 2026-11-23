@@ -14,9 +14,9 @@ export default function MyAttendancePage() {
     "/attendance/my-attendance/",
   );
   const todayAttendance = data?.[0];
-
+  
   return (
-    <main className="space-y-6 p-2">
+    <main className="space-y-4 p-2">
       <PageHeader
         title="My Attendance"
         subTitle="Track your daily attendance and review your attendance history."
@@ -45,6 +45,7 @@ export default function MyAttendancePage() {
           <GenericTable
             columns={myAttendancecolumns}
             data={data ?? []}
+            loading={isPending}
             getRowKey={(row) => row.id}
             emptyMessage="No attendance records found."
           />

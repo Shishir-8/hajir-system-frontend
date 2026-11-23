@@ -2,8 +2,8 @@
 
 import PageHeader from "@/components/common/header/page-header";
 import { useAuthStore } from "@/store/auth-store";
-import StatCard from "./stat-card";
 import { employeeStats } from "@/constants/dashboard-data";
+import { StatCard } from "@/components/common/admin/stat-card";
 
 
 const EmployeeDashboardPage = () => {

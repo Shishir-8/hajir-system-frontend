@@ -2,11 +2,15 @@
 import { useAuthStore } from "@/store/auth-store";
 import { SearchBox } from "../search/search-box";
 import AddButton from "./add-button";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface PageHeaderProps {
   title: string;
   subTitle?: string;
   url?: string;
+  backUrl?: string;
   buttonTitle?: string;
   showSearch?: boolean;
 }
@@ -15,15 +19,14 @@ const PageHeader = ({
   title,
   subTitle,
   url,
+  backUrl,
   buttonTitle,
   showSearch = false,
 }: PageHeaderProps) => {
   const { user } = useAuthStore();
-
   return (
     <header className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-      {/* Title & Subtitle */}
-      <div className="space-y-1">
+      <div className="space-y-1 w-full">
         <h1 className="text-lg font-semibold tracking-tight sm:text-xl">
           {title}
         </h1>
@@ -32,7 +35,15 @@ const PageHeader = ({
         )}
       </div>
 
-      {/* Actions: Search & Add Button */}
+      {backUrl && (
+        <Button
+        nativeButton={false}
+        variant={"outline"} render={<Link href={backUrl} />}>
+          <ArrowLeft />
+          Back
+        </Button>
+      )}
+
       {(showSearch || (url && buttonTitle)) && (
         <div className="flex items-center gap-2 w-full justify-end">
           {showSearch && <SearchBox />}

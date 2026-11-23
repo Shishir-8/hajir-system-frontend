@@ -33,8 +33,8 @@ const LogoutModal = ({ open, setOpen }: LogoutProps) => {
             throw new Error('No refresh token found')
         }
         await logoutUser(refresh, access)
-        clearAuth()
         toast.success('Logout successfull!')
+        clearAuth()
         setOpen(false)
         window.location.href = '/'
     } catch (error: any) {

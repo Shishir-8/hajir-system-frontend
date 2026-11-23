@@ -1,4 +1,4 @@
-import { UserRole } from "@/types/role-permission";
+
 import {
   LayoutDashboard,
   Users,
@@ -9,9 +9,10 @@ import {
   User,
   Settings,
   DollarSign,
+  type LucideIcon,
 } from "lucide-react";
 
-import { LucideIcon } from "lucide-react";
+import { UserRole } from "@/types/role-permission";
 
 export interface SidebarItem {
   title: string;
@@ -48,7 +49,7 @@ export const sidebarData: SidebarGroup[] = [
         roles: [UserRole.ADMIN],
       },
       {
-        title: "Attendances",
+        title: "Attendance",
         url: "/dashboard/attendance",
         icon: CalendarCheck,
         roles: [UserRole.ADMIN, UserRole.MANAGER],
@@ -80,19 +81,19 @@ export const sidebarData: SidebarGroup[] = [
         title: "My Profile",
         url: "/dashboard/my-profile",
         icon: User,
-        roles: [UserRole.ADMIN, UserRole.MANAGER, UserRole.EMPLOYEE],
+        roles: [UserRole.MANAGER, UserRole.EMPLOYEE],
       },
       {
         title: "My Attendance",
         url: "/dashboard/my-attendance",
         icon: Clock,
-        roles: [UserRole.ADMIN, UserRole.MANAGER, UserRole.EMPLOYEE],
+        roles: [UserRole.MANAGER, UserRole.EMPLOYEE],
       },
       {
         title: "My Leaves",
         url: "/dashboard/my-leaves",
         icon: CalendarDays,
-        roles: [UserRole.ADMIN, UserRole.MANAGER, UserRole.EMPLOYEE],
+        roles: [UserRole.MANAGER, UserRole.EMPLOYEE],
       },
     ],
   },
