@@ -1,4 +1,5 @@
 import { Column } from "@/components/common/table/generic-table";
+import { formatDate } from "@/lib/format-date";
 import { LeaveRecord } from "@/types/common";
 
 const statusStyles: Record<LeaveRecord["status"], string> = {
@@ -40,12 +41,32 @@ export const myLeaveColumns: Column<LeaveRecord>[] = [
     ),
   },
   {
-    title: "Start Date",
-    render: (row) => row.start_date,
+    title: "Leave Date",
+    render: (row) => (
+      <span>
+        {row.start_date === row.end_date
+          ? formatDate(row.start_date)
+          : `${formatDate(row.start_date)} - ${formatDate(row.end_date)}`}
+      </span>
+    ),
   },
   {
-    title: "End Date",
-    render: (row) => row.end_date,
+    title: "Duration",
+    render: (row) => (
+      <p>
+        {row.number_of_days} {row.number_of_days === 1 ? "Day" : "Days"}
+      </p>
+    ),
+  },
+    {
+    title: "Status",
+    render: (row) => (
+      <span
+        className={`inline-flex rounded-full px-2.5 py-1 text-xs font-medium ${statusStyles[row.status]}`}
+      >
+        {statusLabels[row.status]}
+      </span>
+    ),
   },
   {
     title: "Reason",
@@ -58,16 +79,7 @@ export const myLeaveColumns: Column<LeaveRecord>[] = [
       </span>
     ),
   },
-  {
-    title: "Status",
-    render: (row) => (
-      <span
-        className={`inline-flex rounded-full px-2.5 py-1 text-xs font-medium ${statusStyles[row.status]}`}
-      >
-        {statusLabels[row.status]}
-      </span>
-    ),
-  },
+
   // {
   //   title: "Applied On",
   //   render: (row) => new Date(row.created_at).toLocaleDateString(),

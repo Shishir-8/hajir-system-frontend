@@ -1,7 +1,5 @@
-export const formatDuration = (duration: string | null) => {
-  if (!duration) return "--";
-
-  const [hours, minutes] = duration.split(":");
-
-  return `${Number(hours)} hr ${Number(minutes)} min`;
-};
+export const formatDate = (date: string) =>
+  new Date(`${date}T00:00:00`).toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+  });

@@ -63,7 +63,7 @@ export default function EmployeeForm({ initialData }: EmployeeFormProps) {
       phone_number: initialData?.phone_number ?? "",
       address: initialData?.address ?? "",
       joining_date: initialData?.joining_date ?? "",
-      employment_status: initialData?.employment_status ?? "ACTIVE",
+      employment_status: initialData?.employment_status ?? undefined,
     },
   });
 
@@ -299,8 +299,10 @@ export default function EmployeeForm({ initialData }: EmployeeFormProps) {
                   {...field}
                   className="h-9 w-full rounded-md border bg-background px-3 text-sm"
                 >
+                  <option value="">All Status</option>
                   <option value="ACTIVE">Active</option>
                   <option value="INACTIVE">Inactive</option>
+                  <option value="TERMINATED">Terminated</option>
                 </select>
                 {fieldState.invalid && (
                   <FieldError errors={[fieldState.error]} />

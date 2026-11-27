@@ -1,6 +1,7 @@
 import { Column } from "@/components/common/table/generic-table";
 import { LeaveRecord } from "@/types/common";
 import LeaveDetail from "./leave-detail";
+import { formatDate } from "@/lib/format-date";
 
 const statusStyles: Record<LeaveRecord["status"], string> = {
   PENDING: "bg-amber-100 text-amber-700",
@@ -43,15 +44,24 @@ export const leaveColumns: Column<LeaveRecord>[] = [
     title: "Leave Type",
     render: (row) => leaveTypeLabels[row.leave_type],
   },
-  {
-    title: "Leave Dates",
-    render: (row) => row.start_date,
+{
+  title: "Leave Date",
+  render: (row) => {
+    return (
+      <span className="text-sm font-medium">
+        {row.start_date === row.end_date
+          ? formatDate(row.start_date)
+          : `${formatDate(row.start_date)} - ${formatDate(row.end_date)}`}
+      </span>
+    );
   },
+},
   {
     title: "Duration",
     render: (row) => (
       <p>
-        {row.number_of_days} {row.number_of_days === 1 ? "Day" : "Days"}
+        {row.number_of_days} {" "}
+        {row.number_of_days === 1 ? "Day" : "Days"}
       </p>
     ),
   },
@@ -86,7 +96,6 @@ export const leaveColumns: Column<LeaveRecord>[] = [
   {
     title: "Actions",
     headerClassName: "text-center",
-    className: "text-right",
     render: (row) => (
       <div className="flex justify-end">
         <LeaveDetail leave={row} />

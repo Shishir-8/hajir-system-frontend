@@ -10,7 +10,6 @@ interface PageHeaderProps {
   title: string;
   subTitle?: string;
   url?: string;
-  backUrl?: string;
   buttonTitle?: string;
   showSearch?: boolean;
 }
@@ -19,7 +18,6 @@ const PageHeader = ({
   title,
   subTitle,
   url,
-  backUrl,
   buttonTitle,
   showSearch = false,
 }: PageHeaderProps) => {
@@ -35,14 +33,6 @@ const PageHeader = ({
         )}
       </div>
 
-      {backUrl && (
-        <Button
-        nativeButton={false}
-        variant={"outline"} render={<Link href={backUrl} />}>
-          <ArrowLeft />
-          Back
-        </Button>
-      )}
 
       {(showSearch || (url && buttonTitle)) && (
         <div className="flex items-center gap-2 w-full justify-end">

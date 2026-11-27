@@ -1,4 +1,3 @@
-
 "use client";
 
 import PageHeader from "@/components/common/header/page-header";
@@ -7,18 +6,16 @@ import { attendanceColumns } from "./components/attendance-columns";
 import { useFetch } from "@/hooks/use-fetch";
 import { PaginatedResponse } from "@/types/common";
 import { AttendanceRecord } from "@/constants/admin-type";
-import AttendanceFilters from "@/components/common/filter/filter";
 import { AttendanceStats } from "./components/attendance-stats";
+import AttendanceFilters from "./components/attendance-filters";
 
 export default function AttendancePage() {
-  const { data, isPending, error } =
-    useFetch<PaginatedResponse<AttendanceRecord>>(
-      ["attendance"],
-      "/attendance/"
-    );
+  const { data, isPending, error } = useFetch<
+    PaginatedResponse<AttendanceRecord>
+  >(["attendance"], "/attendance/");
 
   return (
-    <main className="space-y-6 p-2">
+    <main className="space-y-4 p-2">
       <PageHeader
         title="Attendance Management"
         subTitle="Monitor and manage employee attendance records."
@@ -26,19 +23,8 @@ export default function AttendancePage() {
         buttonTitle="Add Attendance"
       />
 
-      <AttendanceStats
-        present={216}
-        absent={12}
-        late={8}
-        onLeave={12}
-      />
-
-      <AttendanceFilters
-        date=""
-        onDateChange={() => {}}
-        status="ALL"
-        onStatusChange={() => {}}
-      />
+      <AttendanceStats present={216} absent={12} late={8} onLeave={12} />
+      <AttendanceFilters />
 
       {error ? (
         <h1 className="text-center">

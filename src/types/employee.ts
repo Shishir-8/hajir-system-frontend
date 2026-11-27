@@ -7,7 +7,7 @@ export interface Employee {
   role: "EMPLOYEE" | "MANAGER";
   department: string;
   designation: string;
-  employment_status: "ACTIVE" | "INACTIVE";
+  employment_status: "ACTIVE" | "INACTIVE" | "TERMINATED" | undefined;
   joining_date: string;
   phone_number: string;
   created_at: string;

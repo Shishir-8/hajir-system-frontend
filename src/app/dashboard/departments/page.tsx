@@ -10,29 +10,42 @@ import { EPermissions } from "@/types/role-permission";
 import { PaginatedResponse } from "@/types/common";
 import { useFilterStore } from "@/store/filter-store";
 import { useDebounce } from "@/hooks/use-debounce";
+import DepartmentFilter from "./components/department-filters";
+import { getFilter } from "@/lib/filter-helper";
 
 const DepartmentPage = () => {
-  const {search} = useFilterStore()
-  const debouncedSearch = useDebounce(search, 500)
+  const { search, departmentStatus, setDepartmentStatus, resetDepartmentFilters } =
+    useFilterStore();
+
+  const debouncedSearch = useDebounce(search, 500);
+
   const { data, isPending, error } = useFetch<PaginatedResponse<Department>>(
-    ["departments"], "/departments",
+    ["departments"],
+    "/departments",
     {
-      search: debouncedSearch
-    }
+      search: debouncedSearch,
+      is_active: getFilter(departmentStatus, "all"),
+    },
   );
 
-  if(error) {
-    return <p>Failed to load departments {error?.message}</p>
+  if (error) {
+    return <p>Failed to load departments {error?.message}</p>;
   }
 
   return (
-    <main className="space-y-6 p-2">
+    <main className="space-y-4 p-2">
       <PageHeader
         title="Department Page"
         subTitle="Manage all departments"
         buttonTitle="Add Department"
         url="/dashboard/departments/add-department"
         showSearch={true}
+      />
+
+      <DepartmentFilter
+        departmentStatus= {departmentStatus}
+        onStatusChange={setDepartmentStatus}
+        onReset={resetDepartmentFilters}
       />
 
       <GenericTable
@@ -48,5 +61,5 @@ const DepartmentPage = () => {
 };
 
 export default withPermissions(DepartmentPage, [
-  EPermissions.CAN_READ_DEPARTMENT
-])
+  EPermissions.CAN_READ_DEPARTMENT,
+]);

@@ -2,11 +2,11 @@
 
 import PageHeader from "@/components/common/header/page-header";
 import { LeaveStats } from "./components/leave-stats";
-import AttendanceFilters from "@/components/common/filter/filter";
 import { useFetch } from "@/hooks/use-fetch";
 import { GenericTable } from "@/components/common/table/generic-table";
 import { ApiListResponse, LeaveRecord } from "@/types/common";
 import { leaveColumns } from "./components/leave-columns";
+import LeaveFilters from "./components/leave-filter";
 
 const LeavePage = () => {
   const { data, isPending, error } = useFetch<ApiListResponse<LeaveRecord>>(
@@ -24,12 +24,8 @@ const LeavePage = () => {
 
       <LeaveStats />
 
-      <AttendanceFilters
-        date=""
-        onDateChange={() => {}}
-        status="ALL"
-        onStatusChange={() => {}}
-      />
+      <LeaveFilters />
+
 
       {error ? (
         <h1 className="text-center">Failed to load leaves {error?.message}</h1>

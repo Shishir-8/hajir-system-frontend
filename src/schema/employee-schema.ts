@@ -11,7 +11,7 @@ export const employeeSchema = z.object({
   phone_number: z.string().min(1, "Phone number is required"),
   address: z.string().min(1, "Address is required"),
   joining_date: z.string().min(1, "Joining date is required"),
-  employment_status: z.enum(["ACTIVE", "INACTIVE"]),
+  employment_status: z.enum(["ACTIVE", "INACTIVE", "TERMINATED"]),
 });
 
 export const updateEmployeeSchema = employeeSchema.extend({

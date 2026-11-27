@@ -5,7 +5,7 @@ import { GenericTable } from "@/components/common/table/generic-table";
 import { myAttendancecolumns } from "./components/my-attendance-columns";
 import { useFetch } from "@/hooks/use-fetch";
 import { AttendanceRecord } from "@/constants/admin-type";
-import AttendanceFilters from "@/components/common/filter/filter";
+import AttendanceFilters from "@/components/common/filter/table-filter";
 import TodayAttendance from "./components/today-attendance";
 
 export default function MyAttendancePage() {

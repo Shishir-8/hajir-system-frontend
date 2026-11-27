@@ -8,7 +8,6 @@ const ApplyLeavePage = () => {
         <PageHeader
          title="Apply for Leave"
          subTitle="Submit a leave request for approval."
-         backUrl="/dashboard/my-leaves/"
          />
 
          <LeaveForm />

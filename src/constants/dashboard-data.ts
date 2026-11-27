@@ -30,6 +30,7 @@ export const adminStats = [
     icon: Clock,
     iconColor: "text-amber-600",
   },
+
 ];
 
 export const employeeStats = [
